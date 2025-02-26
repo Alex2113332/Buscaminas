@@ -1,7 +1,9 @@
 package com.example.buscaminas.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.size
@@ -22,7 +24,10 @@ fun Cell(cellState: CellState) {
             .size(48.dp)
             .border(1.dp, Color.Red)
             .background(Color.White)
-            .aspectRatio(1f),
+            .aspectRatio(1f)
+            .clickable {
+                Log.d("xxy", "click")
+            },
         contentAlignment = Alignment.Center
     ) {
         Text(

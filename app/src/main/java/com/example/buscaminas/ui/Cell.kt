@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import com.example.buscaminas.domain.CellState
 
 @Composable
-fun Cell(cellState: CellState) {
+fun Cell(cellState: CellState, function: () -> Unit) {
     val cellText = cellState.content()
     Box(
         modifier = Modifier
@@ -25,9 +25,7 @@ fun Cell(cellState: CellState) {
             .border(1.dp, Color.Red)
             .background(Color.White)
             .aspectRatio(1f)
-            .clickable {
-                Log.d("xxy", "click")
-            },
+            .clickable(onClick = function),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -51,29 +49,39 @@ private fun CellState.content(): String {
 @Preview
 @Composable
 fun CellHiddenPreview() {
-    Cell(cellState = CellState.Hidden)
+    Cell(cellState = CellState.Hidden, function = {
+        Log.d("xxy", "click")
+    })
 }
 
 @Preview
 @Composable
 fun CellVisiblePreview() {
-    Cell(cellState = CellState.Visible(3))
+    Cell(cellState = CellState.Visible(3), function = {
+        Log.d("xxy", "click")
+    })
 }
 
 @Preview
 @Composable
 fun CellFlaggedPreview() {
-    Cell(cellState = CellState.Flagged)
+    Cell(cellState = CellState.Flagged, function = {
+        Log.d("xxy", "click")
+    })
 }
 
 @Preview
 @Composable
 fun CellMinePreview() {
-    Cell(cellState = CellState.Mine)
+    Cell(cellState = CellState.Mine, function = {
+        Log.d("xxy", "click")
+    })
 }
 
 @Preview
 @Composable
 fun CellMineExplodedPreview() {
-    Cell(cellState = CellState.MineExploded)
+    Cell(cellState = CellState.MineExploded, function = {
+        Log.d("xxy", "click")
+    })
 }

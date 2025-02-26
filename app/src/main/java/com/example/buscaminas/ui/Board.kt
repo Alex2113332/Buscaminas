@@ -1,5 +1,6 @@
 package com.example.buscaminas.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
@@ -12,7 +13,9 @@ fun Board(cells: List<List<CellState>>) {
         cells.forEach { row ->
             Row {
                 row.forEach { state ->
-                    Cell(state)
+                    Cell(state) {
+                        Log.d("xxy", "click")
+                    }
                 }
             }
         }

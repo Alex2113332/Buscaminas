@@ -14,9 +14,11 @@ import androidx.compose.ui.unit.dp
 import com.example.buscaminas.domain.CellState
 
 @Composable
-fun MinesweeperScreen() {
-    val minesRemaining = 5
-    val time = 0
+fun MinesweeperScreen(
+    minesRemaining: Int = 5,
+    time: Int = 0,
+    cells: List<List<CellState>> = List(6) { List(7) { CellState.Hidden } }
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -27,11 +29,8 @@ fun MinesweeperScreen() {
 
         ) {
         Controls(minesRemaining, time)
-        Board(List(6) { List(7) { CellState.Hidden } })
+        Board(cells)
     }
-}
-
-fun Restart() {
 }
 
 @Preview

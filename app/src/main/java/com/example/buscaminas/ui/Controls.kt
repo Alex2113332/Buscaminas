@@ -30,7 +30,7 @@ fun Controls(minesRemaining: Int, time: Int) {
         Text(
             text = "Mines: $minesRemaining"
         )
-        IconButton(onClick = { Restart() }) {
+        IconButton(onClick = { }) {
             Icon(
                 imageVector = Icons.Default.Face,
                 contentDescription = "Happy face",

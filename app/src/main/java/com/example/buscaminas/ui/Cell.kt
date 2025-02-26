@@ -1,4 +1,4 @@
-package com.example.buscaminas.ui.cell
+package com.example.buscaminas.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,17 +12,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
-
-sealed interface State {
-    data object Hidden : State
-    data class Visible (val minesAround: Int): State
-    data object Flagged : State
-    data object Mine : State
-    data object MineExploded : State
-}
+import com.example.buscaminas.domain.CellState
 
 @Composable
-fun Cell(cellState: State) {
+fun Cell(cellState: CellState) {
     val cellText = cellState.content()
     Box(
         modifier = Modifier
@@ -40,42 +33,42 @@ fun Cell(cellState: State) {
 }
 
 @Composable
-private fun State.content(): String {
+private fun CellState.content(): String {
     return when (this) {
-        State.Hidden -> "H"
-        is State.Visible -> this.minesAround.toString()
-        State.Flagged -> "F"
-        State.Mine -> "M"
-        State.MineExploded -> "X"
+        CellState.Hidden -> "H"
+        is CellState.Visible -> this.minesAround.toString()
+        CellState.Flagged -> "F"
+        CellState.Mine -> "M"
+        CellState.MineExploded -> "X"
     }
 }
 
 @Preview
 @Composable
 fun CellHiddenPreview() {
-    Cell(cellState = State.Hidden)
+    Cell(cellState = CellState.Hidden)
 }
 
 @Preview
 @Composable
 fun CellVisiblePreview() {
-    Cell(cellState = State.Visible(3))
+    Cell(cellState = CellState.Visible(3))
 }
 
 @Preview
 @Composable
 fun CellFlaggedPreview() {
-    Cell(cellState = State.Flagged)
+    Cell(cellState = CellState.Flagged)
 }
 
 @Preview
 @Composable
 fun CellMinePreview() {
-    Cell(cellState = State.Mine)
+    Cell(cellState = CellState.Mine)
 }
 
 @Preview
 @Composable
 fun CellMineExplodedPreview() {
-    Cell(cellState = State.MineExploded)
+    Cell(cellState = CellState.MineExploded)
 }

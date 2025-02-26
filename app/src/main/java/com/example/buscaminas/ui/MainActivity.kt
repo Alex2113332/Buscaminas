@@ -1,4 +1,4 @@
-package com.example.buscaminas.ui.ui
+package com.example.buscaminas.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

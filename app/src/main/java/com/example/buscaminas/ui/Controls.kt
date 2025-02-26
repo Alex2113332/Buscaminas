@@ -11,8 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,9 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Controls() {
-    val minesRenaining = remember { mutableStateOf(5) }
-    val time = remember { mutableStateOf(0) }
+fun Controls(minesRemaining: Int, time: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,7 +28,7 @@ fun Controls() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Mines: ${minesRenaining.value}"
+            text = "Mines: $minesRemaining"
         )
         IconButton(onClick = { Restart() }) {
             Icon(
@@ -41,12 +37,12 @@ fun Controls() {
                 tint = Color.Black
             )
         }
-        Text(text = "Time: ${time.value}")
+        Text(text = "Time: $time")
     }
 }
 
 @Preview
 @Composable
 fun ControlsPreview() {
-    Controls()
+    Controls(minesRemaining = 5, time = 0)
 }

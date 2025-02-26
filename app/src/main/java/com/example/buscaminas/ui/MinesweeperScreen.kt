@@ -15,6 +15,8 @@ import com.example.buscaminas.domain.CellState
 
 @Composable
 fun MinesweeperScreen() {
+    val minesRemaining = 5
+    val time = 0
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -24,7 +26,7 @@ fun MinesweeperScreen() {
         verticalArrangement = Arrangement.spacedBy(20.dp),
 
         ) {
-        Controls()
+        Controls(minesRemaining, time)
         Board(List(6) { List(7) { CellState.Hidden } })
     }
 }

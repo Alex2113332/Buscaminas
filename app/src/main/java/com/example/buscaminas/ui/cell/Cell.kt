@@ -1,4 +1,4 @@
-package com.example.buscaminas.ui
+package com.example.buscaminas.ui.cell
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

@@ -1,10 +1,11 @@
-package com.example.buscaminas.ui
+package com.example.buscaminas.ui.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.buscaminas.ui.board.Board
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MinesweeperScreen() {
-    Cell(cellState = State.Hidden)
+    Board()
 }
 
 @Preview(showBackground = true)

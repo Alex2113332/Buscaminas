@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MinesweeperScreen() {
-    Cell(cellState = CellState.HIDDEN)
+    Cell(cellState = State.Hidden)
 }
 
 @Preview(showBackground = true)

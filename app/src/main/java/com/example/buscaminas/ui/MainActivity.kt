@@ -45,14 +45,14 @@ fun MinesweeperScreen() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Mines:"
+            Text(text = "Mines: 5"
             )
             Icon(
                 imageVector = Icons.Default.Face,
                 contentDescription = "Happy face",
                 tint = Color.Black
             )
-            Text(text = "Time:")
+            Text(text = "Time: 00:00")
         }
         Board(List(6) { List(7) { CellState.Hidden } })
         Button(

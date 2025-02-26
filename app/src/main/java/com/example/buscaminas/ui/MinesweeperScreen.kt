@@ -46,12 +46,13 @@ private fun Controls() {
         Text(
             text = "Mines: 5"
         )
-        IconButton(onClick = {Restart()}) { }
-        Icon(
-            imageVector = Icons.Default.Face,
-            contentDescription = "Happy face",
-            tint = Color.Black
-        )
+        IconButton(onClick = {Restart()}) {
+            Icon(
+                imageVector = Icons.Default.Face,
+                contentDescription = "Happy face",
+                tint = Color.Black
+            )
+        }
         Text(text = "Time: 00:00")
     }
 }

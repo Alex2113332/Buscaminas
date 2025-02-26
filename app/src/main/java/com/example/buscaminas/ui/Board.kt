@@ -10,11 +10,11 @@ import com.example.buscaminas.domain.CellState
 @Composable
 fun Board(cells: List<List<CellState>>) {
     Column {
-        cells.forEach { row ->
+        cells.forEachIndexed { rowIndex, row ->
             Row {
-                row.forEach { state ->
+                row.forEachIndexed { colIndex,state ->
                     Cell(state) {
-                        Log.d("xxy", "click")
+                        Log.d("xxy", "click row:$rowIndex column:$colIndex")
                     }
                 }
             }

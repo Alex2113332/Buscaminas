@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,6 +46,7 @@ private fun Controls() {
         Text(
             text = "Mines: 5"
         )
+        IconButton(onClick = {Restart()}) { }
         Icon(
             imageVector = Icons.Default.Face,
             contentDescription = "Happy face",
@@ -52,6 +54,9 @@ private fun Controls() {
         )
         Text(text = "Time: 00:00")
     }
+}
+
+fun Restart() {
 }
 
 @Preview

@@ -23,9 +23,7 @@ fun Board(cells: List<List<CellState>>) {
 @Composable
 fun BoardPreview() {
     val cells = listOf(
-        listOf(
-            CellState.Hidden, CellState.Visible(1), CellState.Hidden,
-            CellState.Hidden, CellState.Visible(1), CellState.Hidden),
+        listOf(CellState.Hidden, CellState.Visible(1), CellState.Hidden, CellState.Hidden, CellState.Visible(1), CellState.Hidden),
         listOf(CellState.Visible(2), CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
         listOf(CellState.Hidden, CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
         listOf(CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden),

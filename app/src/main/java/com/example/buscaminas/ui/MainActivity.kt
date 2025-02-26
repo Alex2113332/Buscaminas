@@ -1,6 +1,7 @@
 package com.example.buscaminas.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.buscaminas.domain.CellState
@@ -14,6 +15,7 @@ class MainActivity : ComponentActivity() {
                 listOf(CellState.Visible(2), CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
                 listOf(CellState.Hidden, CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
                 listOf(CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden)),
+                onClick = { Log.d("xxx", "click") }
             )
         }
     }

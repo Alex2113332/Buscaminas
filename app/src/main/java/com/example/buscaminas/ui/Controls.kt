@@ -1,6 +1,5 @@
 package com.example.buscaminas.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Controls(minesRemaining: Int, time: Int) {
+fun Controls(minesRemaining: Int, time: Int, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,7 +30,7 @@ fun Controls(minesRemaining: Int, time: Int) {
         Text(
             text = "Mines: $minesRemaining"
         )
-        IconButton(onClick = { Log.d("xxx", "Click") }) {
+        IconButton(onClick = onClick) {
             Icon(
                 imageVector = Icons.Default.Face,
                 contentDescription = "Happy face",
@@ -45,5 +44,5 @@ fun Controls(minesRemaining: Int, time: Int) {
 @Preview
 @Composable
 fun ControlsPreview() {
-    Controls(minesRemaining = 5, time = 0)
+    Controls(minesRemaining = 5, time = 0, onClick = {})
 }

@@ -19,7 +19,7 @@ fun MinesweeperScreen(
     minesRemaining: Int = 5,
     time: Int = 0,
     cells: List<List<CellState>> = List(6) { List(7) { CellState.Hidden } },
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -31,12 +31,16 @@ fun MinesweeperScreen(
 
         ) {
         Controls(minesRemaining, time, onClick)
-        Board(cells)
+        Board(cells) { rowIndex, colIndex ->
+            {
+                Log.d("xxy", "click row:$rowIndex column:$colIndex")
+            }
+        }
     }
 }
 
 @Preview
 @Composable
 fun MinesweeperScreenPreview() {
-    MinesweeperScreen(onClick = { Log.d("xxx", "click") })
+    MinesweeperScreen(onClick = { })
 }

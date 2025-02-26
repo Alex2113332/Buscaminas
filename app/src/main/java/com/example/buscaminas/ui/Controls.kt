@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Controls(minesRemaining: Int, time: Int, onClick: () -> Unit) {
+fun Controls(minesRemaining: Int, time: Int, onClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

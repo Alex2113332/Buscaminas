@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import com.example.buscaminas.domain.CellState
 
 @Composable
-fun Cell(cellState: CellState, function: () -> Unit) {
+fun Cell(cellState: CellState, function: () -> Unit = {}) {
     val cellText = cellState.content()
     Box(
         modifier = Modifier

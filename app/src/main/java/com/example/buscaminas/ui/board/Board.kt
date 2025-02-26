@@ -8,12 +8,12 @@ import com.example.buscaminas.ui.cell.Cell
 import com.example.buscaminas.ui.cell.State
 
 @Composable
-fun Board(width: Int = 6 , height: Int = 6) {
+fun Board(cells: List<List<State>>) {
     Column {
-        repeat(height) {
+        cells.forEach { row ->
             Row {
-                repeat(width) {
-                    Cell(State.Hidden)
+                row.forEach { state ->
+                    Cell(state)
                 }
             }
         }
@@ -23,5 +23,13 @@ fun Board(width: Int = 6 , height: Int = 6) {
 @Preview(showBackground = true)
 @Composable
 fun BoardPreview() {
-    Board()
+    val cells = listOf(
+        listOf(State.Hidden, State.Visible(1), State.Hidden,State.Hidden, State.Visible(1), State.Hidden),
+        listOf(State.Visible(2), State.Hidden, State.Visible(2), State.Hidden, State.Hidden, State.Hidden),
+        listOf(State.Hidden, State.Hidden, State.Visible(2), State.Hidden, State.Hidden, State.Hidden),
+        listOf(State.Hidden, State.Hidden, State.Hidden, State.Hidden, State.Hidden, State.Hidden),
+        listOf(State.Visible(0), State.Visible(0), State.Hidden, State.Hidden, State.Hidden, State.Hidden),
+        listOf(State.Visible(0), State.Visible(0), State.Hidden, State.Hidden, State.Hidden, State.Hidden)
+    )
+    Board(cells)
 }

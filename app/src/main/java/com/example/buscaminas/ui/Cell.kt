@@ -1,14 +1,17 @@
 package com.example.buscaminas.ui
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.Modifier
 
 sealed interface State {
     data object Hidden : State
-    class Visible (val minesAround: Int): State
+    data class Visible (val minesAround: Int): State
     data object Flagged : State
     data object Mine : State
     data object MineExploded : State
@@ -17,7 +20,10 @@ sealed interface State {
 @Composable
 fun Cell(cellState: State) {
     val cellText = cellState.content()
-    Box {
+    Box(
+        modifier = Modifier
+            .border(1.dp, Color.Red)
+    ) {
         Text(
             text = cellText,
             color = Color.White

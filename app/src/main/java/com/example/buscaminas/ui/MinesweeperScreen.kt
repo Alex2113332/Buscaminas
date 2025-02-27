@@ -1,6 +1,5 @@
 package com.example.buscaminas.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +19,7 @@ fun MinesweeperScreen(
     time: Int = 0,
     cells: List<List<CellState>> = List(6) { List(7) { CellState.Hidden } },
     onClick: () -> Unit = {},
+    onCellClick: (Int, Int) -> Unit = { _, _ -> }
 ) {
     Column(
         modifier = Modifier
@@ -31,11 +31,7 @@ fun MinesweeperScreen(
 
         ) {
         Controls(minesRemaining, time, onClick)
-        Board(cells) { rowIndex, colIndex ->
-            {
-                Log.d("xxy", "click row:$rowIndex column:$colIndex")
-            }
-        }
+        Board(cells, onCellClick)
     }
 }
 

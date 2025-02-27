@@ -7,12 +7,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.buscaminas.domain.CellState
 
 @Composable
-fun Board(cells: List<List<CellState>>, onCellClick: (Int, Int) -> () -> Unit = { _, _ -> {} }) {
+fun Board(cells: List<List<CellState>>, onCellClick: (Int, Int) -> Unit = { _, _ -> }) {
     Column {
         cells.forEachIndexed { rowIndex, row ->
             Row {
                 row.forEachIndexed { colIndex,state ->
-                    Cell(state, onCellClick(rowIndex, colIndex))
+                    Cell(state, {onCellClick(rowIndex, colIndex)})
                 }
             }
         }

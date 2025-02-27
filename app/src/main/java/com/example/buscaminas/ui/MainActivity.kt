@@ -15,7 +15,10 @@ class MainActivity : ComponentActivity() {
                 listOf(CellState.Visible(2), CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
                 listOf(CellState.Hidden, CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
                 listOf(CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden)),
-                onClick = { Log.d("xxx", "click") }
+                onClick = { Log.d("xxx", "click") },
+                onCellClick = { rowIndex, colIndex ->
+                    Log.d("xxy", "click row:$rowIndex column:$colIndex")
+                }
             )
         }
     }

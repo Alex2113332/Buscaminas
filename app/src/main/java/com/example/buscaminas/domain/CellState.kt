@@ -1,9 +1,8 @@
 package com.example.buscaminas.domain
 
 sealed interface CellState {
-    data object Hidden : CellState
+    data class Hidden (val hasMine: Boolean): CellState
     data class Visible (val minesAround: Int): CellState
-    data object Flagged : CellState
-    data object Mine : CellState
+    data class Flagged (val hasMine: Boolean): CellState
     data object MineExploded : CellState
 }

@@ -17,7 +17,7 @@ import com.example.buscaminas.domain.CellState
 fun MinesweeperScreen(
     minesRemaining: Int = 5,
     time: Int = 0,
-    cells: List<List<CellState>> = List(6) { List(7) { CellState.Hidden } },
+    cells: List<List<CellState>> = List(6) { List(7) { CellState.Hidden(hasMine = false) } },
     onClick: () -> Unit = {},
     onCellClick: (Int, Int) -> Unit = { _, _ -> }
 ) {

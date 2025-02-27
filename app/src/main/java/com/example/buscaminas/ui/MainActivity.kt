@@ -34,18 +34,20 @@ class MainActivity : ComponentActivity() {
             )
         }
     }
-    
+
     private fun modifyCell(
         cells: List<List<CellState>>,
         rowIndex: Int,
         colIndex: Int,
-        newState: CellState.Visible
-    ) = cells.mapIndexed { r, row ->
-        row.mapIndexed { c, cellState ->
-            if (r == rowIndex && c == colIndex) {
-                newState
-            } else {
-                cellState
+        newState: CellState
+    ): List<List<CellState>> {
+        return cells.mapIndexed { r, row ->
+            row.mapIndexed { c, cellState ->
+                if (r == rowIndex && c == colIndex) {
+                    newState
+                } else {
+                    cellState
+                }
             }
         }
     }
@@ -54,7 +56,8 @@ class MainActivity : ComponentActivity() {
         rows: Int,
         columns: Int
     ): List<List<CellState>> {
-        return List(rows) { List(columns) { CellState.Hidden } }
+        val emptyBoard = List(rows) { List(columns) { CellState.Hidden(hasMine = false) } }
+        return modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true))
     }
 
 }

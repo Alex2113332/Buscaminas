@@ -38,18 +38,18 @@ fun Cell(cellState: CellState, onClick: () -> Unit = {}) {
 @Composable
 private fun CellState.content(): String {
     return when (this) {
-        CellState.Hidden -> "H"
+        is CellState.Hidden -> if (this.hasMine) "M" else "H"
         is CellState.Visible -> this.minesAround.toString()
-        CellState.Flagged -> "F"
-        CellState.Mine -> "M"
+        is CellState.Flagged -> "F"
         CellState.MineExploded -> "X"
     }
 }
 
+
 @Preview
 @Composable
 fun CellHiddenPreview() {
-    Cell(cellState = CellState.Hidden, onClick = {
+    Cell(cellState = CellState.Hidden(hasMine = false), onClick = {
         Log.d("xxy", "click")
     })
 }
@@ -65,15 +65,7 @@ fun CellVisiblePreview() {
 @Preview
 @Composable
 fun CellFlaggedPreview() {
-    Cell(cellState = CellState.Flagged, onClick = {
-        Log.d("xxy", "click")
-    })
-}
-
-@Preview
-@Composable
-fun CellMinePreview() {
-    Cell(cellState = CellState.Mine, onClick = {
+    Cell(cellState = CellState.Flagged(hasMine = false), onClick = {
         Log.d("xxy", "click")
     })
 }

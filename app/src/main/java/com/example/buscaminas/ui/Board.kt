@@ -23,12 +23,12 @@ fun Board(cells: List<List<CellState>>, onCellClick: (Int, Int) -> Unit = { _, _
 @Composable
 fun BoardPreview() {
     val cells = listOf(
-        listOf(CellState.Hidden, CellState.Visible(1), CellState.Hidden, CellState.Hidden, CellState.Visible(1), CellState.Hidden),
-        listOf(CellState.Visible(2), CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
-        listOf(CellState.Hidden, CellState.Hidden, CellState.Visible(2), CellState.Hidden, CellState.Hidden, CellState.Hidden),
-        listOf(CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden),
-        listOf(CellState.Visible(0), CellState.Visible(0), CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden),
-        listOf(CellState.Visible(0), CellState.Visible(0), CellState.Hidden, CellState.Hidden, CellState.Hidden, CellState.Hidden)
+        listOf(CellState.Hidden(hasMine = false), CellState.Visible(1), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Visible(1), CellState.Hidden(hasMine = false)),
+        listOf(CellState.Visible(2), CellState.Hidden(hasMine = false), CellState.Visible(2), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
+        listOf(CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Visible(2), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
+        listOf(CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
+        listOf(CellState.Visible(0), CellState.Visible(0), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
+        listOf(CellState.Visible(0), CellState.Visible(0), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false))
     )
     Board(cells)
 }

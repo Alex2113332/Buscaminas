@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 },
                 onCellClick = { rowIndex, colIndex ->
                     Log.d("xxy", "click row:$rowIndex column:$colIndex")
-                    cells = modifyCell(cells, rowIndex, colIndex, CellState.Visible(0))
+                    cells = revealCells(cells, rowIndex, colIndex)
                 }
             )
         }
@@ -60,6 +60,17 @@ class MainActivity : ComponentActivity() {
         return modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true))
     }
 
+    private fun revealCells(
+        cells: List<List<CellState>>,
+        rowIndex: Int,
+        colIndex: Int
+    ): List<List<CellState>> {
+        val cell = cells[rowIndex][colIndex]
+        val newCell: CellState = when (cell) {
+            is CellState.Hidden -> if (cell.hasMine) CellState.MineExploded else TODO()
+            else -> cell
+        }
+        return modifyCell(cells, rowIndex, colIndex, newCell)
+    }
 }
-
 

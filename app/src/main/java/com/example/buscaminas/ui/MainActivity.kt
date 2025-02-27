@@ -13,14 +13,23 @@ import com.example.buscaminas.domain.CellState
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val rows = 6
+        val columns = 7
         setContent {
-            var cells: List<List<CellState>> by remember { mutableStateOf(List(6) { List(7) { CellState.Hidden } }) }
+            var cells: List<List<CellState>> by remember {
+                mutableStateOf(resetGame(rows, columns))
+            }
 
-            MinesweeperScreen(3, 6, cells = cells,
-                onClick = { Log.d("xxx", "click") },
+            MinesweeperScreen(
+                3,
+                6,
+                cells = cells,
+                onClick = {
+                    cells = resetGame(rows, columns)
+                },
                 onCellClick = { rowIndex, colIndex ->
                     Log.d("xxy", "click row:$rowIndex column:$colIndex")
-                    cells = modifyCell(cells, rowIndex, colIndex, CellState.Visible(1))
+                    cells = modifyCell(cells, rowIndex, colIndex, CellState.Visible(0))
                 }
             )
         }
@@ -40,5 +49,14 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    private fun resetGame(
+        rows: Int,
+        columns: Int
+    ): List<List<CellState>> {
+        return List(rows) { List(columns) { CellState.Hidden } }
+    }
+
 }
+
 

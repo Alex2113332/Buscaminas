@@ -124,10 +124,7 @@ class MainActivity : ComponentActivity() {
             val col = colIndex + offset.second
 
             cells.getOrNull(row)?.getOrNull(col)?.let { neighbour ->
-                if (neighbour is CellState.Mine ||
-                    neighbour is CellState.MineExploded ||
-                    neighbour is CellState.Hidden && neighbour.hasMine ||
-                    neighbour is CellState.Flagged && neighbour.hasMine
+                if (neighbour.isMine()
                 ) {
                     minesAround++
                 }
@@ -137,5 +134,10 @@ class MainActivity : ComponentActivity() {
         return minesAround
 
     }
+
+    private fun CellState.isMine() = this is CellState.Mine ||
+            this is CellState.MineExploded ||
+            this is CellState.Hidden && hasMine ||
+            this is CellState.Flagged && hasMine
 }
 

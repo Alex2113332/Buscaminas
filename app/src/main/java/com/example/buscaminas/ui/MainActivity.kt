@@ -83,19 +83,14 @@ class MainActivity : ComponentActivity() {
         var newCells = modifyCell(cells, rowIndex, colIndex, newCell)
 
         if (newCell is CellState.MineExploded) {
-            for (row in cells.indices) {
-                for (col in cells[row].indices) {
-                    val currentCell = cells[row][col]
-                    val newState = when {
+            newCells = newCells.mapIndexed { row, rowList ->
+                rowList.mapIndexed { col, currentCell ->
+                    when {
                         row == rowIndex && col == colIndex -> CellState.MineExploded
-
                         currentCell is CellState.Hidden && currentCell.hasMine -> CellState.Mine
-
                         currentCell is CellState.Hidden -> CellState.Visible(countMines(cells, row, col))
-
                         else -> currentCell
                     }
-                    newCells = modifyCell(newCells, row, col, newState)
                 }
             }
         }

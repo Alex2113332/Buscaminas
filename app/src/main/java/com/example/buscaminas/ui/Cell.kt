@@ -1,9 +1,10 @@
 package com.example.buscaminas.ui
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.size
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
 import com.example.buscaminas.domain.CellState
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Cell(cellState: CellState, onClick: () -> Unit = {}) {
     val cellText = cellState.content()
@@ -25,7 +27,12 @@ fun Cell(cellState: CellState, onClick: () -> Unit = {}) {
             .border(1.dp, Color.Red)
             .background(Color.White)
             .aspectRatio(1f)
-            .clickable(onClick = onClick),
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = {
+                    Log.d("xxy", "long click")
+                }
+            ),
         contentAlignment = Alignment.Center
     ) {
         Text(

@@ -20,14 +20,15 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(resetGame(rows, columns))
             }
 
-            val remainingMines = cells.flatten().count { it.isMine() }
+            var remainingMines by remember { mutableStateOf(cells.flatten().count { it.isMine() }) }
 
             MinesweeperScreen(
                 minesRemaining = remainingMines,
-                time =6,
+                time = 6,
                 cells = cells,
                 onClick = {
                     cells = resetGame(rows, columns)
+                    remainingMines = cells.flatten().count { it.isMine() }
                 },
                 onCellClick = { rowIndex, colIndex ->
                     Log.d("xxy", "click row:$rowIndex column:$colIndex")
@@ -35,11 +36,23 @@ class MainActivity : ComponentActivity() {
                 },
                 onCellLongClick = { rowIndex, colIndex ->
                     Log.d("xxy", "long click row:$rowIndex column:$colIndex")
-                    cells = modifyCell(cells, rowIndex, colIndex, when (cells[rowIndex][colIndex]) {
-                        is CellState.Hidden -> CellState.Flagged(hasMine = (cells[rowIndex][colIndex] as CellState.Hidden).hasMine)
-                        is CellState.Flagged -> CellState.Hidden(hasMine = (cells[rowIndex][colIndex] as CellState.Flagged).hasMine)
-                        else -> cells[rowIndex][colIndex]
-                    })
+                    val currentCell = cells[rowIndex][colIndex]
+
+                    val newCellState = when (currentCell) {
+                        is CellState.Hidden -> {
+                            remainingMines -= 1
+                            CellState.Flagged(hasMine = currentCell.hasMine)
+                        }
+                        is CellState.Flagged -> {
+                            if (currentCell.hasMine) {
+                                remainingMines += 1
+                            }
+                            CellState.Hidden(hasMine = currentCell.hasMine)
+                        }
+                        else -> currentCell
+                    }
+
+                    cells = modifyCell(cells, rowIndex, colIndex, newCellState)
                 }
             )
         }
@@ -68,8 +81,8 @@ class MainActivity : ComponentActivity() {
     ): List<List<CellState>> {
         val emptyBoard = List(rows) { List(columns) { CellState.Hidden(hasMine = false) } }
         return modifyCell(
-        modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true)),
-        4, 5, CellState.Hidden(hasMine = true)
+            modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true)),
+            4, 5, CellState.Hidden(hasMine = true)
         )
     }
 
@@ -106,7 +119,6 @@ class MainActivity : ComponentActivity() {
         }
 
         return newCells
-
     }
 
     private fun countMines(
@@ -126,15 +138,13 @@ class MainActivity : ComponentActivity() {
             val col = colIndex + offset.second
 
             cells.getOrNull(row)?.getOrNull(col)?.let { neighbour ->
-                if (neighbour.isMine()
-                ) {
+                if (neighbour.isMine()) {
                     minesAround++
                 }
             }
         }
 
         return minesAround
-
     }
 
     private fun CellState.isMine() = this is CellState.Mine ||
@@ -142,4 +152,5 @@ class MainActivity : ComponentActivity() {
             this is CellState.Hidden && hasMine ||
             this is CellState.Flagged && hasMine
 }
+
 

@@ -101,6 +101,7 @@ class MainActivity : ComponentActivity() {
         }
 
         return newCells
+
     }
 
     private fun countMines(

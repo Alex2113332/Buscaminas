@@ -65,12 +65,52 @@ class MainActivity : ComponentActivity() {
         rowIndex: Int,
         colIndex: Int
     ): List<List<CellState>> {
-        val cell = cells[rowIndex][colIndex]
-        val newCell: CellState = when (cell) {
-            is CellState.Hidden -> if (cell.hasMine) CellState.MineExploded else TODO()
+        val newCell: CellState = when (val cell = cells[rowIndex][colIndex]) {
+            is CellState.Hidden -> {
+                if (cell.hasMine) {
+                    CellState.MineExploded
+                } else {
+                    CellState.Visible(countMines(cells, rowIndex, colIndex))
+                }
+            }
+
             else -> cell
         }
-        return modifyCell(cells, rowIndex, colIndex, newCell)
+
+        val newCells = modifyCell(cells, rowIndex, colIndex, newCell)
+
+        return newCells
+    }
+
+    private fun countMines(
+        cells: List<List<CellState>>,
+        rowIndex: Int,
+        colIndex: Int
+    ): Int {
+        var minesAround = 0
+
+        val offsets = listOf(
+            -1 to -1, -1 to 0, -1 to 1,
+            0 to -1, 0 to 1,
+            1 to -1, 1 to 0, 1 to 1
+        )
+        for (offset in offsets) {
+            val row = rowIndex + offset.first
+            val col = colIndex + offset.second
+
+            cells.getOrNull(row)?.getOrNull(col)?.let { neighbour ->
+                if (neighbour is CellState.Mine ||
+                    neighbour is CellState.MineExploded ||
+                    neighbour is CellState.Hidden && neighbour.hasMine ||
+                    neighbour is CellState.Flagged && neighbour.hasMine
+                ) {
+                    minesAround++
+                }
+            }
+        }
+
+        return minesAround
+
     }
 }
 

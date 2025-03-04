@@ -20,9 +20,11 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(resetGame(rows, columns))
             }
 
+            val remainingMines = cells.flatten().count { it.isMine() }
+
             MinesweeperScreen(
-                3,
-                6,
+                minesRemaining = remainingMines,
+                time =6,
                 cells = cells,
                 onClick = {
                     cells = resetGame(rows, columns)

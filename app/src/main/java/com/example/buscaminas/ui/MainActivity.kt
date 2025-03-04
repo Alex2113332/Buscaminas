@@ -20,6 +20,19 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(resetGame(rows, columns))
             }
 
+            val flattenCells = cells.flatten()
+
+            val userLooses = flattenCells.any { it is CellState.MineExploded }
+
+            val userWins = flattenCells.all {
+                when (it) {
+                    is CellState.Visible -> true
+                    is CellState.Flagged -> it.hasMine
+                    is CellState.Hidden -> it.hasMine || it is CellState.Flagged
+                    else -> false
+                }
+            }
+
             MinesweeperScreen(
                 minesRemaining = cells.flatten().count { it.isMine() } - cells.flatten().count { it is CellState.Flagged },
                 time = 6,
@@ -33,9 +46,7 @@ class MainActivity : ComponentActivity() {
                 },
                 onCellLongClick = { rowIndex, colIndex ->
                     Log.d("xxy", "long click row:$rowIndex column:$colIndex")
-                    val currentCell = cells[rowIndex][colIndex]
-
-                    val newCellState = when (currentCell) {
+                    val newCellState = when (val currentCell = cells[rowIndex][colIndex]) {
                         is CellState.Hidden -> {
                             CellState.Flagged(hasMine = currentCell.hasMine)
                         }

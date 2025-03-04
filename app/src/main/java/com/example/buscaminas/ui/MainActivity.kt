@@ -57,7 +57,10 @@ class MainActivity : ComponentActivity() {
         columns: Int
     ): List<List<CellState>> {
         val emptyBoard = List(rows) { List(columns) { CellState.Hidden(hasMine = false) } }
-        return modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true))
+        return modifyCell(
+        modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true)),
+        4, 5, CellState.Hidden(hasMine = true)
+        )
     }
 
     private fun revealCells(
@@ -77,7 +80,26 @@ class MainActivity : ComponentActivity() {
             else -> cell
         }
 
-        val newCells = modifyCell(cells, rowIndex, colIndex, newCell)
+        var newCells = modifyCell(cells, rowIndex, colIndex, newCell)
+
+        if (newCell is CellState.MineExploded) {
+            // Recorrer todas las celdas
+            for (row in cells.indices) {
+                for (col in cells[row].indices) {
+                    val currentCell = cells[row][col]
+                    val newState = when {
+                        row == rowIndex && col == colIndex -> CellState.MineExploded
+
+                        currentCell is CellState.Hidden && currentCell.hasMine -> CellState.Mine
+
+                        currentCell is CellState.Hidden -> CellState.Visible(countMines(cells, row, col))
+
+                        else -> currentCell
+                    }
+                    newCells = modifyCell(newCells, row, col, newState)
+                }
+            }
+        }
 
         return newCells
     }

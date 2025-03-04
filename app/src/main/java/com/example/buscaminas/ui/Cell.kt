@@ -19,7 +19,7 @@ import com.example.buscaminas.domain.CellState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Cell(cellState: CellState, onClick: () -> Unit = {}) {
+fun Cell(cellState: CellState, onClick: () -> Unit = {}, onLongClick: () -> Unit = {} ) {
     val cellText = cellState.content()
     Box(
         modifier = Modifier
@@ -30,7 +30,7 @@ fun Cell(cellState: CellState, onClick: () -> Unit = {}) {
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = {
-                    Log.d("xxy", "long click")
+                    onLongClick()
                 }
             ),
         contentAlignment = Alignment.Center
@@ -57,39 +57,49 @@ private fun CellState.content(): String {
 @Preview
 @Composable
 fun CellHiddenPreview() {
-    Cell(cellState = CellState.Hidden(hasMine = false), onClick = {
-        Log.d("xxy", "click")
-    })
+    Cell(
+        cellState = CellState.Hidden(hasMine = false),
+        onClick = { Log.d("xxy", "click") },
+        onLongClick = { Log.d("xxy", "long click") }
+    )
 }
 
 @Preview
 @Composable
 fun CellVisiblePreview() {
-    Cell(cellState = CellState.Visible(3), onClick = {
-        Log.d("xxy", "click")
-    })
+    Cell(
+        cellState = CellState.Visible(3),
+        onClick = { Log.d("xxy", "click") },
+        onLongClick = { Log.d("xxy", "long click") }
+    )
 }
 
 @Preview
 @Composable
 fun CellFlaggedPreview() {
-    Cell(cellState = CellState.Flagged(hasMine = false), onClick = {
-        Log.d("xxy", "click")
-    })
+    Cell(
+        cellState = CellState.Flagged(hasMine = false),
+        onClick = { Log.d("xxy", "click") },
+        onLongClick = { Log.d("xxy", "long click") }
+    )
 }
 
 @Preview
 @Composable
 fun CellMinePreview() {
-    Cell(cellState = CellState.Mine, onClick = {
-        Log.d("xxy", "click")
-    })
+    Cell(
+        cellState = CellState.Mine,
+        onClick = { Log.d("xxy", "click") },
+        onLongClick = { Log.d("xxy", "long click") }
+    )
 }
 
 @Preview
 @Composable
 fun CellMineExplodedPreview() {
-    Cell(cellState = CellState.MineExploded, onClick = {
-        Log.d("xxy", "click")
-    })
+    Cell(
+        cellState = CellState.MineExploded,
+        onClick = { Log.d("xxy", "click") },
+        onLongClick = { Log.d("xxy", "long click") }
+    )
 }

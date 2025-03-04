@@ -30,6 +30,9 @@ class MainActivity : ComponentActivity() {
                 onCellClick = { rowIndex, colIndex ->
                     Log.d("xxy", "click row:$rowIndex column:$colIndex")
                     cells = revealCells(cells, rowIndex, colIndex)
+                },
+                onCellLongClick = { rowIndex, colIndex ->
+                    Log.d("xxy", "long click row:$rowIndex column:$colIndex")
                 }
             )
         }

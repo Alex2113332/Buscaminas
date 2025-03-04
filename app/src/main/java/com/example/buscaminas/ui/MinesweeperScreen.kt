@@ -19,7 +19,8 @@ fun MinesweeperScreen(
     time: Int = 0,
     cells: List<List<CellState>> = List(6) { List(7) { CellState.Hidden(hasMine = false) } },
     onClick: () -> Unit = {},
-    onCellClick: (Int, Int) -> Unit = { _, _ -> }
+    onCellClick: (Int, Int) -> Unit = { _, _ -> },
+    onCellLongClick: (Int, Int) -> Unit = { _, _ -> }
 ) {
     Column(
         modifier = Modifier
@@ -31,7 +32,7 @@ fun MinesweeperScreen(
 
         ) {
         Controls(minesRemaining, time, onClick)
-        Board(cells, onCellClick)
+        Board(cells, onCellClick, onCellLongClick)
     }
 }
 

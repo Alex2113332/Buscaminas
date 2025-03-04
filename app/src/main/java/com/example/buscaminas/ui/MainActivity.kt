@@ -83,7 +83,6 @@ class MainActivity : ComponentActivity() {
         var newCells = modifyCell(cells, rowIndex, colIndex, newCell)
 
         if (newCell is CellState.MineExploded) {
-            // Recorrer todas las celdas
             for (row in cells.indices) {
                 for (col in cells[row].indices) {
                     val currentCell = cells[row][col]

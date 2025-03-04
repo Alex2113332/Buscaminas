@@ -33,6 +33,11 @@ class MainActivity : ComponentActivity() {
                 },
                 onCellLongClick = { rowIndex, colIndex ->
                     Log.d("xxy", "long click row:$rowIndex column:$colIndex")
+                    cells = modifyCell(cells, rowIndex, colIndex, when (cells[rowIndex][colIndex]) {
+                        is CellState.Hidden -> CellState.Flagged(hasMine = (cells[rowIndex][colIndex] as CellState.Hidden).hasMine)
+                        is CellState.Flagged -> CellState.Hidden(hasMine = (cells[rowIndex][colIndex] as CellState.Flagged).hasMine)
+                        else -> cells[rowIndex][colIndex]
+                    })
                 }
             )
         }

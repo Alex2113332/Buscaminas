@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(resetGame(rows, columns))
             }
 
-            var seconds by remember { mutableStateOf(0) }
+            var seconds by remember { mutableIntStateOf(0) }
 
             val flattenCells = cells.flatten()
 
@@ -118,7 +119,6 @@ class MainActivity : ComponentActivity() {
                     CellState.Visible(countMines(cells, rowIndex, colIndex))
                 }
             }
-
             else -> cell
         }
 
@@ -140,13 +140,12 @@ class MainActivity : ComponentActivity() {
         return newCells
     }
 
-    private fun countMines(
+    private fun findNeighbours(
         cells: List<List<CellState>>,
         rowIndex: Int,
         colIndex: Int
-    ): Int {
-        var minesAround = 0
-
+    ): List<CellState> {
+        val neighbours = mutableListOf<CellState>()
         val offsets = listOf(
             -1 to -1, -1 to 0, -1 to 1,
             0 to -1, 0 to 1,
@@ -157,13 +156,19 @@ class MainActivity : ComponentActivity() {
             val col = colIndex + offset.second
 
             cells.getOrNull(row)?.getOrNull(col)?.let { neighbour ->
-                if (neighbour.isMine()) {
-                    minesAround++
-                }
+                neighbours.add(neighbour)
             }
         }
+        return neighbours
+    }
 
-        return minesAround
+    private fun countMines(
+        cells: List<List<CellState>>,
+        rowIndex: Int,
+        colIndex: Int
+    ): Int {
+        val neighbours = findNeighbours(cells, rowIndex, colIndex)
+        return neighbours.count { it.isMine() }
     }
 
     private fun CellState.isMine() = this is CellState.Mine ||

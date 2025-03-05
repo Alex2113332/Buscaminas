@@ -84,13 +84,11 @@ class MainActivity : ComponentActivity() {
         colIndex: Int,
         newState: CellState
     ): List<List<CellState>> {
+        if (cells[rowIndex][colIndex] == newState) return cells
+
         return cells.mapIndexed { r, row ->
             row.mapIndexed { c, cellState ->
-                if (r == rowIndex && c == colIndex) {
-                    newState
-                } else {
-                    cellState
-                }
+                if (r == rowIndex && c == colIndex) newState else cellState
             }
         }
     }

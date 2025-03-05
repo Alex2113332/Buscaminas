@@ -36,6 +36,8 @@ class MainActivity : ComponentActivity() {
             MinesweeperScreen(
                 minesRemaining = cells.flatten().count { it.isMine() } - cells.flatten().count { it is CellState.Flagged },
                 time = 6,
+                userLooses = userLooses,
+                userWins = userWins,
                 cells = cells,
                 onClick = {
                     cells = resetGame(rows, columns)

@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.SentimentDissatisfied
+import androidx.compose.material.icons.filled.SentimentNeutral
+import androidx.compose.material.icons.filled.SentimentSatisfied
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -18,7 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Controls(minesRemaining: Int, time: Int, onClick: () -> Unit = {}) {
+fun Controls(
+    minesRemaining: Int,
+    time: Int,
+    userLooses: Boolean = false,
+    userWins: Boolean = false,
+    onClick: () -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,11 +39,26 @@ fun Controls(minesRemaining: Int, time: Int, onClick: () -> Unit = {}) {
             text = "Mines: $minesRemaining"
         )
         IconButton(onClick = onClick) {
-            Icon(
-                imageVector = Icons.Default.Face,
-                contentDescription = "Happy face",
-                tint = Color.Black
-            )
+            if (userLooses) {
+                Icon(
+                    imageVector = Icons.Filled.SentimentDissatisfied,
+                    contentDescription = "Sad face",
+                    tint = Color.Black
+                )
+            } else if (userWins) {
+                Icon(
+                    imageVector = Icons.Filled.SentimentSatisfied,
+                    contentDescription = "Happy face",
+                    tint = Color.Black
+                )
+            }
+            else {
+                Icon(
+                    imageVector = Icons.Filled.SentimentNeutral,
+                    contentDescription = "Happy face",
+                    tint = Color.Black
+                )
+            }
         }
         Text(text = "Time: $time")
     }
@@ -45,4 +68,5 @@ fun Controls(minesRemaining: Int, time: Int, onClick: () -> Unit = {}) {
 @Composable
 fun ControlsPreview() {
     Controls(minesRemaining = 5, time = 0, onClick = {})
+
 }

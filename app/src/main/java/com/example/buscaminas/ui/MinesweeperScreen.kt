@@ -17,6 +17,8 @@ import com.example.buscaminas.domain.CellState
 fun MinesweeperScreen(
     minesRemaining: Int = 5,
     time: Int = 0,
+    userLooses: Boolean = false,
+    userWins: Boolean = false,
     cells: List<List<CellState>> = List(6) { List(7) { CellState.Hidden(hasMine = false) } },
     onClick: () -> Unit = {},
     onCellClick: (Int, Int) -> Unit = { _, _ -> },
@@ -31,8 +33,18 @@ fun MinesweeperScreen(
         verticalArrangement = Arrangement.spacedBy(20.dp),
 
         ) {
-        Controls(minesRemaining, time, onClick)
-        Board(cells, onCellClick, onCellLongClick)
+        Controls(
+            minesRemaining,
+            time = time,
+            onClick = onClick,
+            userLooses = userLooses,
+            userWins = userWins
+        )
+        Board(
+            cells,
+            onCellClick,
+            onCellLongClick
+        )
     }
 }
 

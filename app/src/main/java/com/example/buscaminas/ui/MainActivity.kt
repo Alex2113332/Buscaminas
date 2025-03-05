@@ -16,8 +16,8 @@ import kotlinx.coroutines.delay
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val rows = 6
-        val columns = 7
+        val rows = 18
+        val columns = 12
         setContent {
             var cells: List<List<CellState>> by remember {
                 mutableStateOf(resetGame(rows, columns))

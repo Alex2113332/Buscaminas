@@ -5,10 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.material.icons.filled.SentimentNeutral
-import androidx.compose.material.icons.filled.SentimentSatisfied
+import androidx.compose.material.icons.filled.SentimentVeryDissatisfied
+import androidx.compose.material.icons.filled.SentimentVerySatisfied
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -41,22 +42,25 @@ fun Controls(
         IconButton(onClick = onClick) {
             if (userLooses) {
                 Icon(
-                    imageVector = Icons.Filled.SentimentDissatisfied,
+                    imageVector = Icons.Filled.SentimentVeryDissatisfied,
                     contentDescription = "Sad face",
-                    tint = Color.Black
+                    tint = Color.Black,
+                    modifier = Modifier.size(48.dp)
                 )
             } else if (userWins) {
                 Icon(
-                    imageVector = Icons.Filled.SentimentSatisfied,
+                    imageVector = Icons.Filled.SentimentVerySatisfied,
                     contentDescription = "Happy face",
-                    tint = Color.Black
+                    tint = Color.Black,
+                    modifier = Modifier.size(48.dp)
                 )
             }
             else {
                 Icon(
                     imageVector = Icons.Filled.SentimentNeutral,
                     contentDescription = "Happy face",
-                    tint = Color.Black
+                    tint = Color.Black,
+                    modifier = Modifier.size(48.dp)
                 )
             }
         }

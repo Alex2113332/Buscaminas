@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.buscaminas.domain.CellState
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,8 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(resetGame(rows, columns))
             }
 
+            var seconds by remember { mutableStateOf(0) }
+
             val flattenCells = cells.flatten()
 
             val userLooses = flattenCells.any { it is CellState.MineExploded }
@@ -28,19 +32,20 @@ class MainActivity : ComponentActivity() {
                 when (it) {
                     is CellState.Visible -> true
                     is CellState.Flagged -> it.hasMine
-                    is CellState.Hidden -> it.hasMine || it is CellState.Flagged
+                    is CellState.Hidden -> it.hasMine
                     else -> false
                 }
             }
 
             MinesweeperScreen(
                 minesRemaining = cells.flatten().count { it.isMine() } - cells.flatten().count { it is CellState.Flagged },
-                time = 6,
+                time = seconds,
                 userLooses = userLooses,
                 userWins = userWins,
                 cells = cells,
                 onClick = {
                     cells = resetGame(rows, columns)
+                    seconds = 0
                 },
                 onCellClick = { rowIndex, colIndex ->
                     Log.d("xxy", "click row:$rowIndex column:$colIndex")
@@ -61,6 +66,14 @@ class MainActivity : ComponentActivity() {
                     cells = modifyCell(cells, rowIndex, colIndex, newCellState)
                 }
             )
+
+            LaunchedEffect(seconds) {
+                if (!userLooses && !userWins) {
+                    delay(1000)
+                    seconds++
+                }
+
+            }
         }
     }
 

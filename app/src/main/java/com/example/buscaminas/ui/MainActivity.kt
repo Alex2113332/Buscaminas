@@ -145,7 +145,16 @@ class MainActivity : ComponentActivity() {
         rowIndex: Int,
         colIndex: Int
     ): List<CellState> {
-        val neighbours = mutableListOf<CellState>()
+        val neighbours = findNeighboursIndex(cells, rowIndex, colIndex)
+        return neighbours.map { (row, col) -> cells[row][col] }
+    }
+
+    private fun findNeighboursIndex(
+        cells: List<List<CellState>>,
+        rowIndex: Int,
+        colIndex: Int
+    ): List<Pair<Int, Int>> {
+        val neighbours = mutableListOf<Pair<Int, Int>>()
         val offsets = listOf(
             -1 to -1, -1 to 0, -1 to 1,
             0 to -1, 0 to 1,
@@ -156,7 +165,7 @@ class MainActivity : ComponentActivity() {
             val col = colIndex + offset.second
 
             cells.getOrNull(row)?.getOrNull(col)?.let { neighbour ->
-                neighbours.add(neighbour)
+                neighbours.add(row to col)
             }
         }
         return neighbours

@@ -135,6 +135,13 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+        } else if (newCell is CellState.Visible && newCell.minesAround == 0) {
+            val neighbours = findNeighboursIndex(cells, rowIndex, colIndex)
+            neighbours.forEach { (row, col) ->
+                if (cells[row][col] is CellState.Hidden) {
+                    newCells = revealCells(newCells, row, col)
+                }
+            }
         }
 
         return newCells

@@ -100,9 +100,9 @@ class MainActivity : ComponentActivity() {
         columns: Int
     ): List<List<CellState>> {
         val emptyBoard = List(rows) { List(columns) { CellState.Hidden(hasMine = false) } }
-        return modifyCell(
-            modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true)),
-            4, 5, CellState.Hidden(hasMine = true)
+        val cells = modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true))
+        val cells2 = modifyCell(cells, 3, 5, CellState.Hidden(hasMine = true))
+        return modifyCell(cells2, 4, 5, CellState.Hidden(hasMine = true)
         )
     }
 

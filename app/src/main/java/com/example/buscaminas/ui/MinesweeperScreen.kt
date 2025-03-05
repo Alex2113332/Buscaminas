@@ -42,8 +42,16 @@ fun MinesweeperScreen(
         )
         Board(
             cells,
-            onCellClick,
-            onCellLongClick
+            onCellClick = { rowIndex, colIndex ->
+                if (!userLooses && !userWins) {
+                    onCellClick(rowIndex, colIndex)
+                }
+            },
+            onCellLongClick = { rowIndex, colIndex ->
+                if (!userLooses && !userWins) {
+                    onCellLongClick(rowIndex, colIndex)
+                }
+            }
         )
     }
 }

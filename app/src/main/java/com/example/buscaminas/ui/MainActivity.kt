@@ -97,13 +97,22 @@ class MainActivity : ComponentActivity() {
 
     private fun resetGame(
         rows: Int,
-        columns: Int
+        columns: Int,
+        numMines: Int = 5
     ): List<List<CellState>> {
-        val emptyBoard = List(rows) { List(columns) { CellState.Hidden(hasMine = false) } }
-        val cells = modifyCell(emptyBoard, 1, 1, CellState.Hidden(hasMine = true))
-        val cells2 = modifyCell(cells, 3, 5, CellState.Hidden(hasMine = true))
-        return modifyCell(cells2, 4, 5, CellState.Hidden(hasMine = true)
-        )
+        val emptyBoard = MutableList(rows) { MutableList(columns) { CellState.Hidden(hasMine = false) } }
+        var minesPlaced = 0
+
+        while (minesPlaced < numMines) {
+            val randomRow = (0 until rows).random()
+            val randomCol = (0 until columns).random()
+
+            if (!emptyBoard[randomRow][randomCol].isMine()) {
+                emptyBoard[randomRow][randomCol] = CellState.Hidden(hasMine = true)
+                minesPlaced++
+            }
+        }
+        return emptyBoard.map { it.toList() }.toList()
     }
 
     private fun revealCells(

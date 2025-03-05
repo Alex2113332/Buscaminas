@@ -8,7 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.example.buscaminas.domain.CellState
 import kotlinx.coroutines.delay
@@ -18,12 +18,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val rows = 18
         val columns = 12
+        val numMines = 5
         setContent {
-            var cells: List<List<CellState>> by remember {
-                mutableStateOf(resetGame(rows, columns))
+            var cells: List<List<CellState>> by rememberSaveable {
+                mutableStateOf(resetGame(rows, columns, numMines))
             }
 
-            var seconds by remember { mutableIntStateOf(0) }
+            var seconds by rememberSaveable { mutableIntStateOf(0) }
 
             val flattenCells = cells.flatten()
 
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                 userWins = userWins,
                 cells = cells,
                 onClick = {
-                    cells = resetGame(rows, columns)
+                    cells = resetGame(rows, columns, numMines)
                     seconds = 0
                 },
                 onCellClick = { rowIndex, colIndex ->
@@ -96,7 +97,7 @@ class MainActivity : ComponentActivity() {
     private fun resetGame(
         rows: Int,
         columns: Int,
-        numMines: Int = 5
+        numMines: Int
     ): List<List<CellState>> {
         val emptyBoard = MutableList(rows) { MutableList(columns) { CellState.Hidden(hasMine = false) } }
         var minesPlaced = 0

@@ -24,7 +24,7 @@ fun Cell(cellState: CellState, onClick: () -> Unit = {}, onLongClick: () -> Unit
     Box(
         modifier = Modifier
             .size(48.dp)
-            .border(1.dp, Color.Red)
+            .border(1.dp, Color.DarkGray)
             .background(Color.White)
             .aspectRatio(1f)
             .combinedClickable(

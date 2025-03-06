@@ -16,9 +16,9 @@ import kotlinx.coroutines.delay
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val rows = 18
-        val columns = 12
-        val numMines = 5
+        var rows = 9
+        var columns = 9
+        var numMines = 10
         setContent {
             var cells: List<List<CellState>> by rememberSaveable {
                 mutableStateOf(resetGame(rows, columns, numMines))
@@ -64,8 +64,30 @@ class MainActivity : ComponentActivity() {
                         }
                         else -> currentCell
                     }
-
                     cells = modifyCell(cells, rowIndex, colIndex, newCellState)
+                },
+                onDifficultySelected = { difficulty ->
+                    when (difficulty) {
+                        "Principiante" -> {
+                            rows = 9
+                            columns = 9
+                            numMines = 10
+                        }
+
+                        "Intermedio" -> {
+                            rows = 16
+                            columns = 16
+                            numMines = 40
+                        }
+
+                        "Avanzado" -> {
+                            rows = 16
+                            columns = 32
+                            numMines = 99
+                        }
+                    }
+                    cells = resetGame(rows, columns, numMines)
+                    seconds = 0
                 }
             )
 

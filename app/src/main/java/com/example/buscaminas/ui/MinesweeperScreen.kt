@@ -15,14 +15,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.buscaminas.domain.CellState
+import com.example.buscaminas.domain.Difficulty
+import com.example.buscaminas.domain.EasyDifficulty
+import com.example.buscaminas.domain.HardDifficulty
+import com.example.buscaminas.domain.MediumDifficulty
 
 @Composable
 fun MinesweeperScreen(
@@ -34,8 +36,8 @@ fun MinesweeperScreen(
     onClick: () -> Unit = {},
     onCellClick: (Int, Int) -> Unit = { _, _ -> },
     onCellLongClick: (Int, Int) -> Unit = { _, _ -> },
-    onDifficultySelected: (String) -> Unit = {},
-    selectedDifficulty: String
+    onDifficultySelected: (Difficulty) -> Unit = {},
+    selectedDifficulty: Difficulty
 ) {
 
     Column(
@@ -52,30 +54,30 @@ fun MinesweeperScreen(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Button(onClick = {
-                onDifficultySelected("Principiante")
+                onDifficultySelected(EasyDifficulty)
             },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedDifficulty == "Principiante") Color.Gray
+                    containerColor = if (selectedDifficulty == EasyDifficulty) Color.Gray
                     else Color.Unspecified,
                 )
             ) {
                 Text("Principiante")
             }
             Button(onClick = {
-                onDifficultySelected("Intermedio")
+                onDifficultySelected(MediumDifficulty)
             },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedDifficulty == "Intermedio") Color.Gray
+                    containerColor = if (selectedDifficulty == MediumDifficulty) Color.Gray
                     else Color.Unspecified,
                 )
             ) {
                 Text("Intermedio")
             }
             Button(onClick = {
-                onDifficultySelected("Avanzado")
+                onDifficultySelected(HardDifficulty)
             },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedDifficulty == "Avanzado") Color.Gray
+                    containerColor = if (selectedDifficulty == HardDifficulty) Color.Gray
                     else Color.Unspecified,
                 )
             ) {
@@ -119,6 +121,6 @@ fun MinesweeperScreenPreview() {
 
     MinesweeperScreen(
         onClick = {},
-        selectedDifficulty = "Principiante",
+        selectedDifficulty = EasyDifficulty,
     )
 }

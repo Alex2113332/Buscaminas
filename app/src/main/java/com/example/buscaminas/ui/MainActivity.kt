@@ -8,9 +8,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.example.buscaminas.domain.CellState
+import com.example.buscaminas.domain.Difficulty
+import com.example.buscaminas.domain.EasyDifficulty
+import com.example.buscaminas.domain.HardDifficulty
+import com.example.buscaminas.domain.MediumDifficulty
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +25,7 @@ class MainActivity : ComponentActivity() {
         var columns = 9
         var numMines = 10
         setContent {
-            var selectedDifficulty by rememberSaveable { mutableStateOf("Principiante") }
+            var selectedDifficulty: Difficulty by remember { mutableStateOf(EasyDifficulty) }
 
             var cells: List<List<CellState>> by rememberSaveable {
                 mutableStateOf(resetGame(rows, columns, numMines))
@@ -72,19 +77,19 @@ class MainActivity : ComponentActivity() {
                 onDifficultySelected = { difficulty ->
                     selectedDifficulty = difficulty
                     when (difficulty) {
-                        "Principiante" -> {
+                        EasyDifficulty -> {
                             rows = 9
                             columns = 9
                             numMines = 10
                         }
 
-                        "Intermedio" -> {
+                        MediumDifficulty -> {
                             rows = 16
                             columns = 16
                             numMines = 40
                         }
 
-                        "Avanzado" -> {
+                        HardDifficulty -> {
                             rows = 16
                             columns = 32
                             numMines = 99

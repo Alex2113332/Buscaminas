@@ -23,7 +23,7 @@ fun Cell(cellState: CellState, onClick: () -> Unit = {}, onLongClick: () -> Unit
     val cellText = cellState.content()
     Box(
         modifier = Modifier
-            .size(48.dp)
+            .size(41.dp)
             .border(1.dp, Color.DarkGray)
             .background(Color.White)
             .aspectRatio(1f)

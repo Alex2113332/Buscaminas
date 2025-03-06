@@ -2,6 +2,8 @@ package com.example.buscaminas.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Controls(
     minesRemaining: Int,
@@ -28,13 +32,13 @@ fun Controls(
     userWins: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    Row(
+    FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
             .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        maxItemsInEachRow = 3
     ) {
         Text(
             text = "Mines: $minesRemaining"

@@ -20,7 +20,11 @@ fun resetGame(
     columns: Int,
     numMines: Int
 ): List<List<CellState>> {
-    val emptyBoard = MutableList(rows) { MutableList(columns) { CellState.Hidden(hasMine = false) } }
+    val emptyBoard = MutableList(rows) {
+        MutableList(columns) {
+            CellState.Hidden(hasMine = false)
+        }
+    }
     var minesPlaced = 0
 
     while (minesPlaced < numMines) {
@@ -48,6 +52,7 @@ fun revealCells(
                 CellState.Visible(countMines(cells, rowIndex, colIndex))
             }
         }
+
         else -> cell
     }
 
@@ -66,6 +71,7 @@ fun revealCells(
                             col
                         )
                     )
+
                     else -> currentCell
                 }
             }

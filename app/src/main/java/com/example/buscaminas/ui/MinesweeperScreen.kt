@@ -79,8 +79,6 @@ fun MinesweeperScreen(
             }
         }
 
-
-
         Controls(
             minesRemaining,
             time = time,
@@ -88,6 +86,7 @@ fun MinesweeperScreen(
             userLooses = userLooses,
             userWins = userWins
         )
+
         Box(
             modifier = Modifier
                 .fillMaxSize()

@@ -1,7 +1,6 @@
 package com.example.buscaminas.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,7 +12,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.example.buscaminas.domain.CellState
 import com.example.buscaminas.domain.Difficulty
-import com.example.buscaminas.domain.DifficultySaver
 import com.example.buscaminas.domain.EasyDifficulty
 import com.example.buscaminas.domain.isMine
 import com.example.buscaminas.domain.modifyCell
@@ -26,13 +24,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            var selectedDifficulty: Difficulty by rememberSaveable (
+            var selectedDifficulty: Difficulty by rememberSaveable(
                 saver = DifficultySaver,
-            ){
-                mutableStateOf(EasyDifficulty) }
+            ) {
+                mutableStateOf(EasyDifficulty)
+            }
 
             var cells: List<List<CellState>> by rememberSaveable {
-                mutableStateOf(resetGame(selectedDifficulty.rows, selectedDifficulty.columns, selectedDifficulty.numMines))
+                mutableStateOf(
+                    resetGame(
+                        selectedDifficulty.rows,
+                        selectedDifficulty.columns,
+                        selectedDifficulty.numMines
+                    )
+                )
             }
 
             var seconds by rememberSaveable { mutableIntStateOf(0) }
@@ -51,29 +56,33 @@ class MainActivity : ComponentActivity() {
             }
 
             MinesweeperScreen(
-                minesRemaining = cells.flatten().count { it.isMine() } - cells.flatten().count { it is CellState.Flagged },
+                minesRemaining = flattenCells.count { it.isMine() } - flattenCells.count { it is CellState.Flagged },
                 time = seconds,
                 userLooses = userLooses,
                 userWins = userWins,
                 cells = cells,
                 selectedDifficulty = selectedDifficulty,
                 onClick = {
-                    cells = resetGame(selectedDifficulty.rows, selectedDifficulty.columns, selectedDifficulty.numMines)
+                    cells = resetGame(
+                        selectedDifficulty.rows,
+                        selectedDifficulty.columns,
+                        selectedDifficulty.numMines
+                    )
                     seconds = 0
                 },
                 onCellClick = { rowIndex, colIndex ->
-                    Log.d("xxy", "click row:$rowIndex column:$colIndex")
                     cells = revealCells(cells, rowIndex, colIndex)
                 },
                 onCellLongClick = { rowIndex, colIndex ->
-                    Log.d("xxy", "long click row:$rowIndex column:$colIndex")
                     val newCellState = when (val currentCell = cells[rowIndex][colIndex]) {
                         is CellState.Hidden -> {
                             CellState.Flagged(hasMine = currentCell.hasMine)
                         }
+
                         is CellState.Flagged -> {
                             CellState.Hidden(hasMine = currentCell.hasMine)
                         }
+
                         else -> currentCell
                     }
                     cells = modifyCell(cells, rowIndex, colIndex, newCellState)

@@ -7,17 +7,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.buscaminas.domain.CellState
 
 @Composable
-fun Board(cells: List<List<CellState>>,
-          onCellClick: (Int, Int) -> Unit = { _, _ -> },
-          onCellLongClick: (Int, Int) -> Unit = { _, _ -> }
+fun Board(
+    cells: List<List<CellState>>,
+    onCellClick: (Int, Int) -> Unit = { _, _ -> },
+    onCellLongClick: (Int, Int) -> Unit = { _, _ -> }
 ) {
     Column {
         cells.forEachIndexed { rowIndex, row ->
             Row {
-                row.forEachIndexed { colIndex,state ->
+                row.forEachIndexed { colIndex, state ->
                     Cell(
-                        state,
-                        onClick = {onCellClick(rowIndex, colIndex)},
+                        cellState = state,
+                        onClick = { onCellClick(rowIndex, colIndex) },
                         onLongClick = { onCellLongClick(rowIndex, colIndex) }
                     )
                 }
@@ -30,12 +31,20 @@ fun Board(cells: List<List<CellState>>,
 @Composable
 fun BoardPreview() {
     val cells = listOf(
-        listOf(CellState.Hidden(hasMine = false), CellState.Visible(1), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Visible(1), CellState.Hidden(hasMine = false)),
-        listOf(CellState.Visible(2), CellState.Hidden(hasMine = false), CellState.Visible(2), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
-        listOf(CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Visible(2), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
-        listOf(CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
-        listOf(CellState.Visible(0), CellState.Visible(0), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false)),
-        listOf(CellState.Visible(0), CellState.Visible(0), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false), CellState.Hidden(hasMine = false))
+        listOf(
+        CellState.Hidden(hasMine = false),
+        CellState.Visible(minesAround = 3),
+        CellState.Flagged(hasMine = false),
+        CellState.Mine,
+        CellState.MineExploded
+        ),
+        listOf(
+            CellState.Hidden(hasMine = true),
+            CellState.Visible(minesAround = 0),
+            CellState.Flagged(hasMine = true),
+            CellState.Mine,
+            CellState.MineExploded
+        )
     )
     Board(cells)
 }

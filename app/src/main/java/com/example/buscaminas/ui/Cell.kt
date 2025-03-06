@@ -45,7 +45,7 @@ fun Cell(cellState: CellState, onClick: () -> Unit = {}, onLongClick: () -> Unit
 @Composable
 private fun CellState.content(): String {
     return when (this) {
-        is CellState.Hidden -> "H"
+        is CellState.Hidden -> " "
         is CellState.Visible -> this.minesAround.toString()
         is CellState.Flagged -> "F"
         CellState.Mine -> "M"

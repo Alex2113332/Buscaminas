@@ -20,6 +20,8 @@ class MainActivity : ComponentActivity() {
         var columns = 9
         var numMines = 10
         setContent {
+            var selectedDifficulty by rememberSaveable { mutableStateOf("Principiante") }
+
             var cells: List<List<CellState>> by rememberSaveable {
                 mutableStateOf(resetGame(rows, columns, numMines))
             }
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
                 userLooses = userLooses,
                 userWins = userWins,
                 cells = cells,
+                selectedDifficulty = selectedDifficulty,
                 onClick = {
                     cells = resetGame(rows, columns, numMines)
                     seconds = 0
@@ -67,6 +70,7 @@ class MainActivity : ComponentActivity() {
                     cells = modifyCell(cells, rowIndex, colIndex, newCellState)
                 },
                 onDifficultySelected = { difficulty ->
+                    selectedDifficulty = difficulty
                     when (difficulty) {
                         "Principiante" -> {
                             rows = 9

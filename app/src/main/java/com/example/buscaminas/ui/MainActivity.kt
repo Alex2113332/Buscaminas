@@ -14,21 +14,16 @@ import androidx.compose.runtime.setValue
 import com.example.buscaminas.domain.CellState
 import com.example.buscaminas.domain.Difficulty
 import com.example.buscaminas.domain.EasyDifficulty
-import com.example.buscaminas.domain.HardDifficulty
-import com.example.buscaminas.domain.MediumDifficulty
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var rows = 9
-        var columns = 9
-        var numMines = 10
         setContent {
             var selectedDifficulty: Difficulty by remember { mutableStateOf(EasyDifficulty) }
 
             var cells: List<List<CellState>> by rememberSaveable {
-                mutableStateOf(resetGame(rows, columns, numMines))
+                mutableStateOf(resetGame(selectedDifficulty.rows, selectedDifficulty.columns, selectedDifficulty.numMines))
             }
 
             var seconds by rememberSaveable { mutableIntStateOf(0) }
@@ -54,7 +49,7 @@ class MainActivity : ComponentActivity() {
                 cells = cells,
                 selectedDifficulty = selectedDifficulty,
                 onClick = {
-                    cells = resetGame(rows, columns, numMines)
+                    cells = resetGame(selectedDifficulty.rows, selectedDifficulty.columns, selectedDifficulty.numMines)
                     seconds = 0
                 },
                 onCellClick = { rowIndex, colIndex ->
@@ -76,26 +71,7 @@ class MainActivity : ComponentActivity() {
                 },
                 onDifficultySelected = { difficulty ->
                     selectedDifficulty = difficulty
-                    when (difficulty) {
-                        EasyDifficulty -> {
-                            rows = 9
-                            columns = 9
-                            numMines = 10
-                        }
-
-                        MediumDifficulty -> {
-                            rows = 16
-                            columns = 16
-                            numMines = 40
-                        }
-
-                        HardDifficulty -> {
-                            rows = 16
-                            columns = 32
-                            numMines = 99
-                        }
-                    }
-                    cells = resetGame(rows, columns, numMines)
+                    cells = resetGame(difficulty.rows, difficulty.columns, difficulty.numMines)
                     seconds = 0
                 }
             )

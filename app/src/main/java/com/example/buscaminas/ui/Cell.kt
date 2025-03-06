@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.buscaminas.domain.CellState
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -24,11 +26,23 @@ fun Cell(
     onLongClick: () -> Unit = {},
 ) {
     val cellText = cellState.content()
+
+    val cellColor = when (cellState) {
+        is CellState.Hidden, is CellState.Flagged -> Color.DarkGray
+        is CellState.Visible, is CellState.Mine, is CellState.MineExploded -> Color.LightGray
+    }
+
+    val textColor = when (cellState) {
+        is CellState.Flagged -> Color.Red
+        is CellState.Visible -> getTextColorBasedOnMines(cellState.minesAround)
+        else -> Color.Black
+    }
+
     Box(
         modifier = Modifier
             .size(41.dp)
-            .border(1.dp, Color.DarkGray)
-            .background(Color.White)
+            .border(1.dp, Color.White)
+            .background(cellColor)
             .aspectRatio(1f)
             .combinedClickable(
                 onClick = onClick,
@@ -40,7 +54,9 @@ fun Cell(
     ) {
         Text(
             text = cellText,
-            color = Color.Black
+            color = textColor,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
         )
     }
 }
@@ -49,10 +65,25 @@ fun Cell(
 private fun CellState.content(): String {
     return when (this) {
         is CellState.Hidden -> " "
-        is CellState.Visible -> this.minesAround.toString()
+        is CellState.Visible -> if (this.minesAround == 0) " " else this.minesAround.toString()
         is CellState.Flagged -> "F"
-        CellState.Mine -> "M"
-        CellState.MineExploded -> "X"
+        is CellState.Mine -> "M"
+        is CellState.MineExploded -> "X"
+    }
+}
+
+@Composable
+private fun getTextColorBasedOnMines(minesAround: Int): Color {
+    return when (minesAround) {
+        1 -> Color.Blue
+        2 -> Color.Green
+        3 -> Color.Red
+        4 -> Color.Magenta
+        5 -> Color.Yellow
+        6 -> Color.Cyan
+        7 -> Color.Black
+        8 -> Color.DarkGray
+        else -> Color.Black
     }
 }
 

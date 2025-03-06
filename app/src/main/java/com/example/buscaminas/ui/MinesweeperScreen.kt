@@ -51,41 +51,28 @@ fun MinesweeperScreen(
             .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp),
-        ) {
+    ) {
 
-        Row (
+        Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Button(onClick = {
-                onDifficultySelected(EasyDifficulty)
-            },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedDifficulty == EasyDifficulty) Color.Gray
-                    else Color.Unspecified,
-                )
-            ) {
-                Text(stringResource(R.string.Easy))
-            }
-            Button(onClick = {
-                onDifficultySelected(MediumDifficulty)
-            },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedDifficulty == MediumDifficulty) Color.Gray
-                    else Color.Unspecified,
-                )
-            ) {
-                Text(stringResource(R.string.Medium))
-            }
-            Button(onClick = {
-                onDifficultySelected(HardDifficulty)
-            },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedDifficulty == HardDifficulty) Color.Gray
-                    else Color.Unspecified,
-                )
-            ) {
-                Text(stringResource(R.string.Hard))
+            mapOf(
+                EasyDifficulty to R.string.Easy,
+                MediumDifficulty to R.string.Medium,
+                HardDifficulty to R.string.Hard
+            ).forEach { (difficulty, stringRes) ->
+                Button(
+                    onClick = {
+                        onDifficultySelected(difficulty)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (selectedDifficulty == difficulty) Color.Gray
+                        else Color.Unspecified,
+                    )
+                ) {
+                    Text(stringResource(stringRes))
+                }
             }
         }
 

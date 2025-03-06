@@ -18,8 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.buscaminas.R
 import com.example.buscaminas.domain.CellState
 import com.example.buscaminas.domain.Difficulty
 import com.example.buscaminas.domain.EasyDifficulty
@@ -61,7 +63,7 @@ fun MinesweeperScreen(
                     else Color.Unspecified,
                 )
             ) {
-                Text("Principiante")
+                Text(stringResource(R.string.principiante))
             }
             Button(onClick = {
                 onDifficultySelected(MediumDifficulty)
@@ -71,7 +73,7 @@ fun MinesweeperScreen(
                     else Color.Unspecified,
                 )
             ) {
-                Text("Intermedio")
+                Text(stringResource(R.string.intermedio))
             }
             Button(onClick = {
                 onDifficultySelected(HardDifficulty)
@@ -81,7 +83,7 @@ fun MinesweeperScreen(
                     else Color.Unspecified,
                 )
             ) {
-                Text("Avanzado")
+                Text(stringResource(R.string.avanzado))
             }
         }
 

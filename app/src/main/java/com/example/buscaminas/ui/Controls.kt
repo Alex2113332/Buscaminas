@@ -58,7 +58,7 @@ fun Controls(
             else {
                 Icon(
                     imageVector = Icons.Filled.SentimentNeutral,
-                    contentDescription = "Happy face",
+                    contentDescription = "Neutral face",
                     tint = Color.Black,
                     modifier = Modifier.size(48.dp)
                 )

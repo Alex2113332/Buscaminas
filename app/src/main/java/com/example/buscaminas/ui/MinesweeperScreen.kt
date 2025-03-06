@@ -63,7 +63,7 @@ fun MinesweeperScreen(
                     else Color.Unspecified,
                 )
             ) {
-                Text(stringResource(R.string.principiante))
+                Text(stringResource(R.string.Easy))
             }
             Button(onClick = {
                 onDifficultySelected(MediumDifficulty)
@@ -73,7 +73,7 @@ fun MinesweeperScreen(
                     else Color.Unspecified,
                 )
             ) {
-                Text(stringResource(R.string.intermedio))
+                Text(stringResource(R.string.Medium))
             }
             Button(onClick = {
                 onDifficultySelected(HardDifficulty)
@@ -83,7 +83,7 @@ fun MinesweeperScreen(
                     else Color.Unspecified,
                 )
             ) {
-                Text(stringResource(R.string.avanzado))
+                Text(stringResource(R.string.Hard))
             }
         }
 

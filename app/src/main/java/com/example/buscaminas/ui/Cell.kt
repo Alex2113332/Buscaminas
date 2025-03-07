@@ -40,16 +40,6 @@ fun Cell(
         else -> Color.Black
     }
 
-    val cellContent = when (cellState) {
-        is CellState.Mine -> R.drawable.mine
-        is CellState.MineExploded -> R.drawable.explosion
-        is CellState.Visible -> {
-            if (cellState.minesAround == 0) " " else cellState.minesAround.toString() // Si no tiene minas alrededor, mostrar vacío
-        }
-        is CellState.Flagged -> R.drawable.flag
-        is CellState.Hidden -> " "
-    }
-
     Box(
         modifier = Modifier
             .size(41.dp)
@@ -58,22 +48,28 @@ fun Cell(
             .aspectRatio(1f)
             .combinedClickable(
                 onClick = onClick,
-                onLongClick = {
-                    onLongClick()
-                }
+                onLongClick = onLongClick
             ),
         contentAlignment = Alignment.Center
     ) {
-        if (cellContent is Int) {
-            Image(
-                painter = painterResource(id = cellContent),
-                contentDescription = "Cell Image",
-                modifier = Modifier.padding(3.dp)
-            )
-        } else {
+        val cellContent = when (cellState) {
+            is CellState.Mine -> R.drawable.mine
+            is CellState.MineExploded -> R.drawable.explosion
+            is CellState.Flagged -> R.drawable.flag
+            else -> null
+        }
 
+        cellContent?.let {
+            Image(
+                painter = painterResource(id = it),
+                contentDescription = "Cell Image",
+                modifier = Modifier.padding(2.dp)
+            )
+        }
+
+        if (cellState is CellState.Visible) {
             Text(
-                text = cellContent.toString(),
+                text = if (cellState.minesAround == 0) " " else cellState.minesAround.toString(),
                 color = textColor,
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp
@@ -96,7 +92,6 @@ private fun getTextColorBasedOnMines(minesAround: Int): Color {
         else -> Color.Black
     }
 }
-
 
 @Preview
 @Composable

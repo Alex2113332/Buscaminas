@@ -70,8 +70,8 @@ fun MinesweeperScreen(
                         onDifficultySelected(difficulty)
                     },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selectedDifficulty == difficulty) Color.Gray
-                        else Color.Unspecified,
+                        containerColor = if (selectedDifficulty == difficulty) Color.Unspecified
+                        else Color.Gray,
                     )
                 ) {
                     Text(stringResource(stringRes))

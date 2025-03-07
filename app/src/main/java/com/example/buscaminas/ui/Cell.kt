@@ -29,8 +29,6 @@ fun Cell(
     onClick: () -> Unit = {},
     onLongClick: () -> Unit = {},
 ) {
-    val cellText = cellState.content()
-
     val cellColor = when (cellState) {
         is CellState.Hidden, is CellState.Flagged -> Color.DarkGray
         is CellState.Visible, is CellState.Mine, is CellState.MineExploded -> Color.LightGray
@@ -40,6 +38,16 @@ fun Cell(
         is CellState.Flagged -> Color.Red
         is CellState.Visible -> getTextColorBasedOnMines(cellState.minesAround)
         else -> Color.Black
+    }
+
+    val cellContent = when (cellState) {
+        is CellState.Mine -> R.drawable.mine
+        is CellState.MineExploded -> R.drawable.explosion
+        is CellState.Visible -> {
+            if (cellState.minesAround == 0) " " else cellState.minesAround.toString() // Si no tiene minas alrededor, mostrar vacío
+        }
+        is CellState.Flagged -> R.drawable.flag
+        is CellState.Hidden -> " "
     }
 
     Box(
@@ -56,46 +64,21 @@ fun Cell(
             ),
         contentAlignment = Alignment.Center
     ) {
-        if (cellState is CellState.Mine) {
+        if (cellContent is Int) {
             Image(
-                painter = painterResource(id = R.drawable.mine),
-                contentDescription = "Mine",
-                modifier = Modifier.padding(5.dp)
-
+                painter = painterResource(id = cellContent),
+                contentDescription = "Cell Image",
+                modifier = Modifier.padding(3.dp)
             )
-        } else if (cellState is CellState.MineExploded) {
-            Image(
-                painter = painterResource(id = R.drawable.explosion),
-                contentDescription = "MineExploded",
-                modifier = Modifier.padding(1.dp)
+        } else {
 
+            Text(
+                text = cellContent.toString(),
+                color = textColor,
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp
             )
-        }  else if (cellState is CellState.Flagged) {
-        Image(
-            painter = painterResource(id = R.drawable.flag),
-            contentDescription = "Flagged",
-            modifier = Modifier.padding(1.dp)
-
-        )
-    }
-
-        Text(
-            text = cellText,
-            color = textColor,
-            fontWeight = FontWeight.Bold,
-            fontSize = 24.sp
-        )
-    }
-}
-
-@Composable
-private fun CellState.content(): String {
-    return when (this) {
-        is CellState.Hidden -> " "
-        is CellState.Visible -> if (this.minesAround == 0) " " else this.minesAround.toString()
-        is CellState.Flagged -> " "
-        is CellState.Mine -> " "
-        is CellState.MineExploded -> ""
+        }
     }
 }
 

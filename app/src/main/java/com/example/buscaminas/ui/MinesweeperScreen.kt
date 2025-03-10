@@ -157,8 +157,10 @@ fun DifficultySelectionDialog(
                         steps = steps,
                         colors = SliderDefaults.colors(
                             thumbColor = Color.Black,
-                            activeTrackColor = Color.DarkGray,
-                            inactiveTrackColor = Color.Gray
+                            activeTrackColor = Color.Gray,
+                            inactiveTrackColor = Color.DarkGray,
+                            activeTickColor = Color.Gray,
+                            inactiveTickColor = Color.Gray
                         )
                     )
                     Text(text = stringResource(R.string.cols, newDifficulty.columns))
@@ -176,8 +178,10 @@ fun DifficultySelectionDialog(
                         steps = steps,
                         colors = SliderDefaults.colors(
                             thumbColor = Color.Black,
-                            activeTrackColor = Color.DarkGray,
-                            inactiveTrackColor = Color.Gray
+                            activeTrackColor = Color.Gray,
+                            inactiveTrackColor = Color.DarkGray,
+                            activeTickColor = Color.Gray,
+                            inactiveTickColor = Color.Gray
                         )
                     )
                     Text(text = stringResource(R.string.rows, newDifficulty.rows))
@@ -195,8 +199,10 @@ fun DifficultySelectionDialog(
                         steps = 99,
                         colors = SliderDefaults.colors(
                             thumbColor = Color.Black,
-                            activeTrackColor = Color.DarkGray,
-                            inactiveTrackColor = Color.Gray
+                            activeTrackColor = Color.Gray,
+                            inactiveTrackColor = Color.DarkGray,
+                            activeTickColor = Color.Gray,
+                            inactiveTickColor = Color.Gray
                         )
                     )
                     Text(text = stringResource(R.string.mines, newDifficulty.minePercentage))

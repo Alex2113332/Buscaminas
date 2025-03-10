@@ -31,7 +31,10 @@ fun Cell(
 ) {
     val cellColor = when (cellState) {
         is CellState.Hidden, is CellState.Flagged -> Color.DarkGray
-        is CellState.Visible, is CellState.Mine, is CellState.MineExploded -> Color.LightGray
+        is CellState.Visible, is CellState.Mine, is CellState.MineExploded -> {
+            if (cellState is CellState.MineExploded) Color.Red
+            else Color.LightGray
+        }
     }
 
     val textColor = when (cellState) {
@@ -53,8 +56,8 @@ fun Cell(
         contentAlignment = Alignment.Center
     ) {
         val cellContent = when (cellState) {
-            is CellState.Mine -> R.drawable.mine
-            is CellState.MineExploded -> R.drawable.explosion
+            is CellState.Mine -> R.drawable.mine3
+            is CellState.MineExploded -> R.drawable.explosion3
             is CellState.Flagged -> R.drawable.flag
             else -> null
         }

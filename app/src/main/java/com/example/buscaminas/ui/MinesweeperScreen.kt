@@ -51,7 +51,7 @@ fun MinesweeperScreen(
             .padding(20.dp)
             .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp),
+        verticalArrangement = Arrangement.Center,
     ) {
 
         LazyRow(
@@ -92,6 +92,7 @@ fun MinesweeperScreen(
                 .fillMaxSize()
                 .horizontalScroll(rememberScrollState())
                 .verticalScroll(rememberScrollState())
+                .weight(1f)
         ) {
             Board(
                 cells,

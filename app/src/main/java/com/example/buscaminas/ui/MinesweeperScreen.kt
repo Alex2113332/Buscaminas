@@ -57,6 +57,7 @@ fun MinesweeperScreen(
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.fillMaxWidth(),
+
         ) {
             items(
                 listOf(
@@ -70,7 +71,7 @@ fun MinesweeperScreen(
                         onDifficultySelected(difficulty)
                     },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selectedDifficulty == difficulty) Color.Unspecified
+                        containerColor = if (selectedDifficulty == difficulty) Color.Black
                         else Color.Gray,
                     )
                 ) {

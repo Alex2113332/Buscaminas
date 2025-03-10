@@ -37,12 +37,6 @@ fun Cell(
         }
     }
 
-    val textColor = when (cellState) {
-        is CellState.Flagged -> Color.Red
-        is CellState.Visible -> getTextColorBasedOnMines(cellState.minesAround)
-        else -> Color.Black
-    }
-
     Box(
         modifier = Modifier
             .size(41.dp)
@@ -73,7 +67,7 @@ fun Cell(
         if (cellState is CellState.Visible) {
             Text(
                 text = if (cellState.minesAround == 0) " " else cellState.minesAround.toString(),
-                color = textColor,
+                color = getTextColorBasedOnMines(cellState.minesAround),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp
             )

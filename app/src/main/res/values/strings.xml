@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Buscaminas</string>
-    <string name="Easy">Easy</string>
-    <string name="Medium">Medium</string>
-    <string name="Hard">Hard</string>
+    <string name="Easy">Facil</string>
+    <string name="Medium">Medio</string>
+    <string name="Hard">Dificil</string>
+    <string name="custom">Personalizado</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="mines">%1$.1f%% Minas</string>
+    <string name="rows">%1$d Filas</string>
+    <string name="cols">%1$d Columnas</string>
 </resources>

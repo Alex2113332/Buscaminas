@@ -41,7 +41,7 @@ fun MinesweeperScreen(
             .padding(20.dp)
             .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(10.dp),

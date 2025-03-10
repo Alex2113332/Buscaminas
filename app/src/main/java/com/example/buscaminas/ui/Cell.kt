@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,18 +31,18 @@ fun Cell(
     onLongClick: () -> Unit = {},
 ) {
     val cellColor = when (cellState) {
-        is CellState.Hidden, is CellState.Flagged -> Color.DarkGray
+        is CellState.Hidden, is CellState.Flagged -> Color(0xFF4A4A4A)
         is CellState.Visible, is CellState.Mine, is CellState.MineExploded -> {
-            if (cellState is CellState.MineExploded) Color.Red
-            else Color.LightGray
+            if (cellState is CellState.MineExploded) Color(0xFFFF4C4C)
+            else Color(0xFFD3D3D3)
         }
     }
 
     Box(
         modifier = Modifier
             .size(41.dp)
-            .border(1.dp, Color.White)
-            .background(cellColor)
+            .background(cellColor, shape = MaterialTheme.shapes.medium)
+            .border(1.dp, Color.White, shape = MaterialTheme.shapes.medium)
             .aspectRatio(1f)
             .combinedClickable(
                 onClick = onClick,
@@ -60,7 +61,7 @@ fun Cell(
             Image(
                 painter = painterResource(id = it),
                 contentDescription = "Cell Image",
-                modifier = Modifier.padding(2.dp)
+                modifier = Modifier.padding(5.dp)
             )
         }
 
@@ -69,7 +70,8 @@ fun Cell(
                 text = if (cellState.minesAround == 0) " " else cellState.minesAround.toString(),
                 color = getTextColorBasedOnMines(cellState.minesAround),
                 fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
+                fontSize = 24.sp,
+                modifier = Modifier.padding(4.dp)
             )
         }
     }
@@ -78,14 +80,14 @@ fun Cell(
 @Composable
 private fun getTextColorBasedOnMines(minesAround: Int): Color {
     return when (minesAround) {
-        1 -> Color.Blue
-        2 -> Color.Green
-        3 -> Color.Red
-        4 -> Color.Magenta
-        5 -> Color.Yellow
-        6 -> Color.Cyan
-        7 -> Color.Black
-        8 -> Color.DarkGray
+        1 -> Color(0xFF1E90FF)
+        2 -> Color(0xFF32CD32)
+        3 -> Color(0xFFFF6347)
+        4 -> Color(0xFF800080)
+        5 -> Color(0xFFFFD700)
+        6 -> Color(0xFF00CED1)
+        7 -> Color(0xFF000000)
+        8 -> Color(0xFF696969)
         else -> Color.Black
     }
 }

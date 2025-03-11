@@ -99,7 +99,6 @@ class MainActivity : ComponentActivity() {
                     delay(1000)
                     seconds++
                 }
-
             }
         }
     }

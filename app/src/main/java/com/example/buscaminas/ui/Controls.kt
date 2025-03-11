@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.SentimentNeutral
 import androidx.compose.material.icons.filled.SentimentVeryDissatisfied
@@ -21,8 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,8 +47,8 @@ fun Controls(
             .clip(MaterialTheme.shapes.large)
             .background(
                 color = when {
-                    userLooses -> Color.Red.copy(alpha = 0.1f)
-                    userWins -> Color.Green.copy(alpha = 0.1f)
+                    userLooses -> Color.Red.copy(alpha = 0.5f)
+                    userWins -> Color.Green.copy(alpha = 0.5f)
                     else -> Color.Gray.copy(alpha = 0.2f)
                 }
             )
@@ -55,26 +59,25 @@ fun Controls(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = stringResource(R.string.minescounter, minesRemaining),
                 color = Color.Black,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.width(120.dp),
+                textAlign = TextAlign.Start
             )
+
+            Spacer(Modifier.weight(1f))
 
             IconButton(
                 onClick = onClick,
                 modifier = Modifier
                     .size(64.dp)
                     .background(
-                        color = when {
-                            userLooses -> Color.Red.copy(alpha = 0.1f)
-                            userWins -> Color.Green.copy(alpha = 0.1f)
-                            else -> Color.Transparent
-                        },
+                        color = Transparent,
                         shape = MaterialTheme.shapes.small
                     )
                     .padding(8.dp)
@@ -93,11 +96,15 @@ fun Controls(
                 )
             }
 
+            Spacer(Modifier.weight(1f))
+
             Text(
                 text = stringResource(R.string.time, time),
                 color = Color.Black,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.width(120.dp),
+                textAlign = TextAlign.End
             )
         }
     }

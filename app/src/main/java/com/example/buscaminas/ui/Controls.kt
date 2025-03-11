@@ -1,6 +1,7 @@
 package com.example.buscaminas.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -52,6 +53,7 @@ fun Controls(
                     else -> Color.Gray.copy(alpha = 0.2f)
                 }
             )
+            .border(2.dp, Color.Black, shape = MaterialTheme.shapes.large)
             .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         maxItemsInEachRow = 3

@@ -60,7 +60,7 @@ fun Cell(
         cellContent?.let {
             Image(
                 painter = painterResource(id = it),
-                contentDescription = "Cell Image",
+                contentDescription = "",
                 modifier = Modifier.padding(5.dp)
             )
         }
@@ -105,6 +105,14 @@ fun CellHiddenPreview() {
 fun CellVisiblePreview() {
     Cell(
         cellState = CellState.Visible(3),
+    )
+}
+
+@Preview
+@Composable
+fun CellVisible0Preview() {
+    Cell(
+        cellState = CellState.Visible(0),
     )
 }
 

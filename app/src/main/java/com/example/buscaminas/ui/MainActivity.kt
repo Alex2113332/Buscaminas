@@ -71,21 +71,25 @@ class MainActivity : ComponentActivity() {
                     seconds = 0
                 },
                 onCellClick = { rowIndex, colIndex ->
-                    cells = revealCells(cells, rowIndex, colIndex)
+                    if (!userLooses && !userWins) {
+                        cells = revealCells(cells, rowIndex, colIndex)
+                    }
                 },
                 onCellLongClick = { rowIndex, colIndex ->
-                    val newCellState = when (val currentCell = cells[rowIndex][colIndex]) {
-                        is CellState.Hidden -> {
-                            CellState.Flagged(hasMine = currentCell.hasMine)
-                        }
+                    if (!userLooses && !userWins) {
+                        val newCellState = when (val currentCell = cells[rowIndex][colIndex]) {
+                            is CellState.Hidden -> {
+                                CellState.Flagged(hasMine = currentCell.hasMine)
+                            }
 
-                        is CellState.Flagged -> {
-                            CellState.Hidden(hasMine = currentCell.hasMine)
-                        }
+                            is CellState.Flagged -> {
+                                CellState.Hidden(hasMine = currentCell.hasMine)
+                            }
 
-                        else -> currentCell
+                            else -> currentCell
+                        }
+                        cells = modifyCell(cells, rowIndex, colIndex, newCellState)
                     }
-                    cells = modifyCell(cells, rowIndex, colIndex, newCellState)
                 },
                 onDifficultySelected = { difficulty ->
                     selectedDifficulty = difficulty
@@ -94,7 +98,7 @@ class MainActivity : ComponentActivity() {
                 }
             )
 
-            LaunchedEffect(seconds) {
+            LaunchedEffect(seconds, userLooses, userWins) {
                 if (!userLooses && !userWins) {
                     delay(1000)
                     seconds++

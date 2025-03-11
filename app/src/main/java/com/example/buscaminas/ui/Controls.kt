@@ -84,15 +84,14 @@ fun Controls(
                     )
                     .padding(8.dp)
             ) {
-                val icon = when {
-                    userLooses -> Icons.Filled.SentimentVeryDissatisfied
-                    userWins -> Icons.Filled.SentimentVerySatisfied
-                    else -> Icons.Filled.SentimentNeutral
-                }
 
                 Icon(
-                    imageVector = icon,
-                    contentDescription = "Game Status",
+                    imageVector = when {
+                        userLooses -> Icons.Filled.SentimentVeryDissatisfied
+                        userWins -> Icons.Filled.SentimentVerySatisfied
+                        else -> Icons.Filled.SentimentNeutral
+                    },
+                    contentDescription = "",
                     tint = Color.Black,
                     modifier = Modifier.size(48.dp)
                 )
@@ -116,5 +115,15 @@ fun Controls(
 @Composable
 fun ControlsPreview() {
     Controls(minesRemaining = 5, time = 0, onClick = {})
+}
 
+@Preview
+@Composable
+fun ControlsWinningPreview() {
+    Controls(minesRemaining = 5, time = 0, onClick = {}, userWins = true)
+}
+@Preview
+@Composable
+fun ControlsLoosingPreview() {
+    Controls(minesRemaining = 5, time = 0, onClick = {}, userLooses = true)
 }

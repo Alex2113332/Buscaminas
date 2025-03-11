@@ -21,10 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.buscaminas.R
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -44,7 +46,8 @@ fun Controls(
                     userLooses -> Color.Red.copy(alpha = 0.1f)
                     userWins -> Color.Green.copy(alpha = 0.1f)
                     else -> Color.Gray.copy(alpha = 0.2f)
-                })
+                }
+            )
             .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         maxItemsInEachRow = 3
@@ -56,7 +59,7 @@ fun Controls(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Mines: $minesRemaining",
+                text = stringResource(R.string.minescounter, minesRemaining),
                 color = Color.Black,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
@@ -91,7 +94,7 @@ fun Controls(
             }
 
             Text(
-                text = "Time: $time",
+                text = stringResource(R.string.time, time),
                 color = Color.Black,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold

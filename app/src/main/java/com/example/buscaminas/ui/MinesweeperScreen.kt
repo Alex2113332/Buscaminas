@@ -41,7 +41,7 @@ fun MinesweeperScreen(
             .padding(20.dp)
             .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(15.dp),
     ) {
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -88,8 +88,8 @@ fun MinesweeperScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .horizontalScroll(rememberScrollState())
-                .verticalScroll(rememberScrollState())
-                .weight(1f)
+                .verticalScroll(rememberScrollState()),
+            contentAlignment = Alignment.TopCenter
         ) {
             Board(
                 cells,

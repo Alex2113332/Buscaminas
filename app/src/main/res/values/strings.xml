@@ -9,4 +9,6 @@
     <string name="mines">%1$.1f%% Minas</string>
     <string name="rows">%1$d Filas</string>
     <string name="cols">%1$d Columnas</string>
+    <string name="minescounter">Minas: %1$s</string>
+    <string name="time">Tiempo: %1$s</string>
 </resources>

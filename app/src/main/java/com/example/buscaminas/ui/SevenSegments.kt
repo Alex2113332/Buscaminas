@@ -1,6 +1,7 @@
 package com.example.buscaminas.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -23,7 +24,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SevenSegmentDisplay(number: Int) {
-    Row {
+    Row(
+        modifier = Modifier
+            .padding(4.dp)
+            .border(2.dp, Color.Black)
+    ) {
         number.coerceIn(0, 999)
             .toDigits()
             .let {
@@ -40,8 +45,8 @@ fun SevenSegmentDisplay(number: Int) {
 private fun SevenSegmentDigit(
     digit: Int,
     modifier: Modifier = Modifier,
-    size: Dp = 10.dp,
-    thickness: Dp = 2.dp
+    size: Dp = 20.dp,
+    thickness: Dp = 4.dp
 ) {
     with(digit.toSegments()){
         Box(
@@ -54,7 +59,7 @@ private fun SevenSegmentDigit(
 
             val horizontalModifier = Modifier
                 .width(size - 1.dp)
-                .padding(horizontal = 2.dp)
+                .padding(horizontal = thickness)
                 .height(thickness)
             val verticalModifier = Modifier
                 .height(size - 1.dp)
@@ -190,7 +195,7 @@ private fun Segment(
     modifier: Modifier = Modifier,
     active: Boolean,
     activeColor: Color = Color.Red,
-    inactiveColor: Color = Color.Red.copy(alpha = .1f),
+    inactiveColor: Color = Color.Red.copy(alpha = .2f),
 ) {
     Box(modifier) {
         Box(
